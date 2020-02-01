@@ -1,0 +1,25 @@
+-Error List
+1. cannot get by ID and ControlNumber in request.
+2. Delete request Not working.
+3. Put Request Not working also.
+4. Post Request not working.
+
+-Working
+1. Getting all data from the database.
+
+Solution:
+	-Check all the function between the commands and services check also
+	the routing request in controllers 70% of the problem maybe in the
+	functions of the request which is in the commands and services.
+
+
+project structure : 
+	Models -> lahat ng data na papasok sa database ay nakabase sa loob ng
+		  models.
+	Controllers -> Dito nangyayari ang routing request ng API like post,
+		       delete, get, post
+	Commands -> Nangyayari dito ang methods na  post, put and delete method
+		    na gagamitin ng controllers
+	Services -> dito nangyayari ang get function na gagamitin din ng controllers
+		    upang magamit para mafetch lahat ng data sa Api 
+	
