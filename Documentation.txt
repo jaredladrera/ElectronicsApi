@@ -1,11 +1,12 @@
--Error List
-1. cannot get by ID and ControlNumber in request.
-2. Delete request Not working.
-3. Put Request Not working also.
-4. Post Request not working.
+-Error List 
+All Errors ang bugs are fix today 
 
 -Working
 1. Getting all data from the database.
+2. get by ID and ControlNumber in request.
+3. Post Request working.
+4. Delete request working.
+5. Put Request working also.
 
 Solution:
 	-Check all the function between the commands and services check also

@@ -11,5 +11,6 @@ namespace ElectronicsAPI.Commands.Interface
         int PutLatestVersionAll(int id, DeviceDetails latest);
         bool DeleteById(int id);
         bool Post(DeviceDetails deviceDetails);
+        DeviceDetails Create(DeviceDetails deviceDetails);
     }
 }

@@ -23,6 +23,7 @@ namespace ElectronicsAPI.Services
         virtual public object GetAll()
         {
             var deviceInfos = (from deviceInfo in _device.Find(a => true).ToList() select new { 
+                deviceID = deviceInfo.Id,
                 controlNumber = deviceInfo.controlNumber,
                 brand = deviceInfo.brand,
                 model = deviceInfo.model,
@@ -45,7 +46,7 @@ namespace ElectronicsAPI.Services
 
             try
             {
-                deviceInfos = (from __deviceinfo in _device.Find(a => a.controlNumber == id).ToList() select new { 
+                deviceInfos = (from __deviceinfo in _device.Find(a => a.Id == id).ToList() select new { 
                     controlNumber = __deviceinfo.controlNumber,
                     brand = __deviceinfo.brand,
                     model = __deviceinfo.model,
@@ -103,5 +104,8 @@ namespace ElectronicsAPI.Services
             deviceinfo = (deviceInfos as IEnumerable<object>).First();
             return true;
         }
+
+        public DeviceDetails getById(int id) =>
+           _device.Find<DeviceDetails>(gadget => gadget.Id == id).FirstOrDefault();
     }
 }

@@ -42,11 +42,11 @@ namespace ElectronicsAPI.Commands
                 //this is for updating the data from the database
                 filter = Builders<DeviceDetails>.Filter.Eq(nameof(deviceInfo.controlNumber), deviceInfo.controlNumber);
                 update = Builders<DeviceDetails>.Update;
-                updateDef = update.Set(nameof(deviceInfo.brand), deviceInfo.brand)
-                    .Set(nameof(deviceInfo.controlNumber), deviceInfo.controlNumber)
-                    .Set(nameof(deviceInfo.model), deviceInfo.model)
-                    .Set(nameof(deviceInfo.isHighEnd), deviceInfo.isHighEnd)
-                    .Set(nameof(deviceInfo.releaseDate), deviceInfo.releaseDate);
+                updateDef = update.Set(nameof(deviceInfo.brand), latest.brand)
+                    .Set(nameof(deviceInfo.controlNumber), latest.controlNumber)
+                    .Set(nameof(deviceInfo.model), latest.model)
+                    .Set(nameof(deviceInfo.isHighEnd), latest.isHighEnd)
+                    .Set(nameof(deviceInfo.releaseDate), latest.releaseDate);
 
                 result = _device.UpdateOne(filter, updateDef);
 
@@ -93,6 +93,15 @@ namespace ElectronicsAPI.Commands
             _device.InsertOne(deviceDetails);
 
             return true;
+
+        }
+        
+
+        public DeviceDetails Create(DeviceDetails deviceDetails)
+        {
+            _device.InsertOne(deviceDetails);
+
+            return deviceDetails;
 
         }
 

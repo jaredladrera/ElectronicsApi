@@ -117,11 +117,19 @@ namespace ElectronicsAPI.Controllers
         }
 
 
- //       [HttpDelete("{controlNumber:length(24)}")]
-  //      public IActionResult Delete(int controlNumber)
-  //      {
+        [HttpDelete("{Id}")]
+        public IActionResult Delete(int id)
+        {
+            var device = _deviceService.getById(id);
+            if(device == null)
+            {
+                return NotFound();
+            }
 
-  //      }
+            _detailsCommands.DeleteById(device.Id);
+
+            return NoContent();
+        }
 
     }
 }
