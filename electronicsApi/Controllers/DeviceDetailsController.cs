@@ -32,7 +32,7 @@ namespace ElectronicsAPI.Controllers
         {
             var queryCollectin = this.Request.Query;
 
-            if (queryCollectin.Count == 0)
+            if (queryCollectin.Count() == 0)
             {
                 var deviceinfos = _deviceService.GetAll() as IEnumerable<object>;
 
@@ -40,7 +40,7 @@ namespace ElectronicsAPI.Controllers
                     return NotFound();
 
                 return Ok(deviceinfos);
-            } else if (queryCollectin.Count == 1)
+            } else if (queryCollectin.Count() == 1)
             {
                 return GetQueries(queryCollectin);
             } else

@@ -14,6 +14,8 @@ namespace ElectronicsAPI.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
+        [BsonElement("deviceId")]
         public int deviceId { get; set; }
         public int ram { get; set; }
         public string color { get; set; }
