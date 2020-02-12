@@ -49,6 +49,30 @@ namespace ElectronicsAPI.Controllers
             }
         }
 
+        [HttpGet("information")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetInformation()
+        {
+            var queryColection = this.Request.Query;
+            if(queryColection.Count() == 0)
+            {
+                var deviceinfos = _deviceService.GetAllInformation() as IEnumerable<object>;
+
+                if (deviceinfos == null || deviceinfos.Count() <= 0)
+                    return NotFound();
+
+                return Ok(deviceinfos);
+            } else if(queryColection.Count() == 1)
+            {
+                return GetQueries(queryColection);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetQueries(IQueryCollection queries)
@@ -90,6 +114,7 @@ namespace ElectronicsAPI.Controllers
         public void Post([FromBody]DeviceDetails deviceDetails)
         {
             _detailsCommands.Post(deviceDetails);
+
             //return CreatedAtRoute("GetDevice", new { controlNumber = deviceDetails.controlNumber.ToString() }, deviceDetails);
         }
 

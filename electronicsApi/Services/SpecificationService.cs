@@ -73,6 +73,53 @@ namespace ElectronicsAPI.Services
                
         }
 
+
+
+        virtual public bool GetByDeviceId(int deviceId, out object specsInfo)
+        {
+            if (deviceId < 1)
+            {
+                specsInfo = null;
+                return false;
+            }
+            object specsInfos = null;
+
+            try
+            {
+                specsInfos = (from __specsInfo in _specs.Find(a => a.deviceId == deviceId).ToList()
+                              select new
+                              {
+                                  deviceId = __specsInfo.deviceId,
+                                  ram = __specsInfo.ram,
+                                  color = __specsInfo.color,
+                                  hdd = __specsInfo.hdd,
+                                  operatingSystem = __specsInfo.operatingSystem,
+                                  processor = __specsInfo.processor
+                              });
+            }
+            catch
+            {
+                specsInfo = null;
+                return false;
+            }
+
+            if ((specsInfos as IEnumerable<object>).Count() <= 0)
+            {
+                specsInfo = null;
+                return false;
+            }
+
+            specsInfo = (specsInfos as IEnumerable<object>).First();
+            return true;
+
+        }
+
+
+        virtual public int GetTest(int id)
+        {
+            return id;
+        }
+
         virtual public object GetAllInformation()
         {
             var deviceinfos = (from device in _devDetails.Find(a => true).ToList()
@@ -136,5 +183,8 @@ namespace ElectronicsAPI.Services
             deviceInformation = (deviceInfos as IEnumerable<object>).First();
             return true;
         }
+
+        public Specification gettingById(string id) =>
+            _specs.Find<Specification>(sp => sp.Id == id).FirstOrDefault();
     }
 }

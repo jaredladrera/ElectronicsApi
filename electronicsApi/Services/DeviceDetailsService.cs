@@ -14,10 +14,12 @@ namespace ElectronicsAPI.Services
     public class DeviceDetailsService : IDeviceDetailsService
     {
         private readonly IMongoCollection<DeviceDetails> _device;
+        private readonly IMongoCollection<Specification> _specs;
 
-        public DeviceDetailsService(IMongoCollection<DeviceDetails> device)
+        public DeviceDetailsService(IMongoCollection<DeviceDetails> device, IMongoCollection<Specification> specs)
         {
             _device = device;
+            _specs = specs;
         }
 
         virtual public object GetAll()
@@ -32,6 +34,26 @@ namespace ElectronicsAPI.Services
             });
 
             return deviceInfos;
+        }
+
+        virtual public object GetAllInformation()
+        {
+
+            var deviceInformation = (from deviceinfo in _device.Find(a => true).ToList() join specs in _specs.Find(m => true).ToList() on deviceinfo.Id equals specs.deviceId
+                                     select new { 
+                                           controlNumber = deviceinfo.controlNumber,
+                                           brand = deviceinfo.brand,
+                                           model = deviceinfo.model,
+                                           isHighEnd = deviceinfo.isHighEnd,
+                                           releaseDate = deviceinfo.releaseDate,
+                                           ram = specs.ram,
+                                           color = specs.color,
+                                           hdd = specs.hdd,
+                                           operatingSystem = specs.operatingSystem,
+                                           processor = specs.processor
+                                     });
+
+            return deviceInformation;
         }
 
         virtual public bool GetByControlNumber(int id, out object deviceInfo)

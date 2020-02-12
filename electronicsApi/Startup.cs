@@ -64,8 +64,9 @@ namespace ElectronicsAPI
             // mahala to para malaman ng service or commands ang mga gagamitin mong collection na ng galing sa database
             // sa part na to ang service at commands ay papasahan ng collection parameters ito yung nakikita mong parameters sa baba
             // at saparte ding ito ang parameter na pinasa hindi lang models ito ay collection mula sa mongoDB na nakabase ay ang ginawa mong collection sa Models
-            services.AddSingleton<IDeviceDetailsService>(new DeviceDetailsService(deviceDetailsCollection));
+            services.AddSingleton<IDeviceDetailsService>(new DeviceDetailsService(deviceDetailsCollection, deviceSpecsCollection));
             services.AddSingleton<IDeviceDetailsCommands>(new DeviceDetailsCommands(deviceDetailsCollection));
+            services.AddSingleton<ISpecsCommands>(new SpecsCommands(deviceDetailsCollection, deviceSpecsCollection));
             services.AddSingleton<ISpecificationService>(new SpecificationService(deviceSpecsCollection, deviceDetailsCollection));
 
             services.AddControllers();
