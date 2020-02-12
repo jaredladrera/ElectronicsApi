@@ -22,5 +22,8 @@ project structure :
 	Commands -> Nangyayari dito ang methods na  post, put and delete method
 		    na gagamitin ng controllers
 	Services -> dito nangyayari ang get function na gagamitin din ng controllers
-		    upang magamit para mafetch lahat ng data sa Api 
+		    upang magamit para mafetch lahat ng data sa Api
+
+
+SOME UPDATE CHANGES 02/12/2020 
 	
